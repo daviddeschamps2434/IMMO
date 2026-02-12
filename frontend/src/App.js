@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import axios from "axios";
@@ -20,39 +20,6 @@ import AdminBlog from "@/pages/AdminBlog";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-// Agent info
-const AGENT = {
-  name: "Clotilde Martin",
-  role: "Mandataire BSK Immobilier",
-  phone: "06 20 83 38 87",
-  phoneLink: "tel:0620833887",
-  location: "Bardigues (82340)",
-  quote: "VENDRE ou ACHETER un bien immobilier est un acte important et l'accompagnement d'un professionnel est nécessaire pour réussir votre projet sereinement et en toute sécurité.",
-  photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face"
-};
-
-// Sectors
-const SECTORS = [
-  {
-    name: "Lauzerte",
-    code: "82110",
-    description: "Cité médiévale du Tarn-et-Garonne",
-    image: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=600&h=400&fit=crop"
-  },
-  {
-    name: "Montcuq",
-    code: "46800",
-    description: "Charmant village du Lot",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop"
-  },
-  {
-    name: "Montaigu-de-Quercy",
-    code: "82150",
-    description: "Au cœur du Quercy Blanc",
-    image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop"
-  }
-];
-
 // Property types
 const PROPERTY_TYPES = [
   { value: "Maison", label: "Maison", icon: Home },
@@ -62,7 +29,7 @@ const PROPERTY_TYPES = [
 ];
 
 // Header Component with Navigation
-const Header = () => {
+const Header = ({ content }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   
@@ -70,6 +37,8 @@ const Header = () => {
     if (path === '/') return location.pathname === '/';
     return location.pathname.startsWith(path);
   };
+
+  const phoneLink = `tel:${(content?.agent_phone || '06 20 83 38 87').replace(/\s/g, '')}`;
 
   return (
     <header className="header-sticky py-3 px-4 md:px-8" data-testid="header">
@@ -101,12 +70,12 @@ const Header = () => {
             Blog
           </Link>
           <a 
-            href={AGENT.phoneLink}
+            href={phoneLink}
             className="flex items-center gap-2 bg-[#0079e8] text-white px-4 py-2 rounded-full font-semibold hover:bg-[#0062bd] transition-colors btn-animate"
             data-testid="header-phone-btn"
           >
             <Phone className="w-4 h-4" />
-            <span>{AGENT.phone}</span>
+            <span>{content?.agent_phone || '06 20 83 38 87'}</span>
           </a>
         </nav>
 
@@ -124,26 +93,11 @@ const Header = () => {
       {mobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-white border-b shadow-lg py-4 px-4">
           <nav className="flex flex-col gap-4">
-            <Link 
-              to="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className={`font-medium py-2 ${isActive('/') && location.pathname === '/' ? 'text-[#0079e8]' : 'text-slate-600'}`}
-            >
-              Accueil
-            </Link>
-            <Link 
-              to="/blog"
-              onClick={() => setMobileMenuOpen(false)}
-              className={`font-medium py-2 ${isActive('/blog') ? 'text-[#0079e8]' : 'text-slate-600'}`}
-            >
-              Blog
-            </Link>
-            <a 
-              href={AGENT.phoneLink}
-              className="flex items-center justify-center gap-2 bg-[#0079e8] text-white px-4 py-3 rounded-full font-semibold"
-            >
+            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="font-medium py-2 text-slate-600">Accueil</Link>
+            <Link to="/blog" onClick={() => setMobileMenuOpen(false)} className="font-medium py-2 text-slate-600">Blog</Link>
+            <a href={phoneLink} className="flex items-center justify-center gap-2 bg-[#0079e8] text-white px-4 py-3 rounded-full font-semibold">
               <Phone className="w-4 h-4" />
-              <span>{AGENT.phone}</span>
+              <span>{content?.agent_phone || '06 20 83 38 87'}</span>
             </a>
           </nav>
         </div>
@@ -153,21 +107,21 @@ const Header = () => {
 };
 
 // Hero Component
-const Hero = ({ onScrollToForm }) => (
+const Hero = ({ content, onScrollToForm }) => (
   <section 
     className="hero-section"
     style={{
-      backgroundImage: `url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&h=1080&fit=crop')`
+      backgroundImage: `url('${content?.hero_image_url || 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&h=1080&fit=crop'}')`
     }}
     data-testid="hero-section"
   >
     <div className="absolute inset-0 hero-overlay"></div>
     <div className="hero-content px-4 max-w-4xl mx-auto">
       <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in-up">
-        Confiez votre projet immobilier à une experte locale
+        {content?.hero_title || 'Confiez votre projet immobilier à une experte locale'}
       </h1>
       <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto animate-fade-in-up animation-delay-100">
-        Accompagnement personnalisé pour la vente de votre bien sur Lauzerte, Montcuq et Montaigu-de-Quercy
+        {content?.hero_subtitle || 'Accompagnement personnalisé pour la vente de votre bien'}
       </p>
       <div className="flex flex-wrap justify-center gap-4 animate-fade-in-up animation-delay-200">
         <Button 
@@ -175,7 +129,7 @@ const Hero = ({ onScrollToForm }) => (
           className="bg-[#0079e8] hover:bg-[#0062bd] text-white text-lg px-8 py-6 rounded-full font-semibold btn-animate"
           data-testid="hero-cta-btn"
         >
-          Estimation gratuite
+          {content?.hero_cta_text || 'Estimation gratuite'}
         </Button>
         <Link to="/blog">
           <Button 
@@ -193,73 +147,77 @@ const Hero = ({ onScrollToForm }) => (
 );
 
 // Agent Section
-const AgentSection = () => (
-  <section className="py-16 md:py-24 px-4 bg-slate-50" data-testid="agent-section">
-    <div className="max-w-6xl mx-auto">
-      <div className="grid md:grid-cols-2 gap-12 items-center">
-        <div className="order-2 md:order-1">
-          <h2 className="font-heading text-3xl md:text-4xl font-semibold text-slate-800 mb-6">
-            Votre interlocutrice dédiée
-          </h2>
-          <div className="flex items-center gap-2 mb-4">
-            <span className="text-2xl font-semibold text-[#0079e8]">{AGENT.name}</span>
+const AgentSection = ({ content }) => {
+  const phoneLink = `tel:${(content?.agent_phone || '06 20 83 38 87').replace(/\s/g, '')}`;
+  
+  return (
+    <section className="py-16 md:py-24 px-4 bg-slate-50" data-testid="agent-section">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="order-2 md:order-1">
+            <h2 className="font-heading text-3xl md:text-4xl font-semibold text-slate-800 mb-6">
+              {content?.agent_section_title || 'Votre interlocutrice dédiée'}
+            </h2>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-2xl font-semibold text-[#0079e8]">{content?.agent_name || 'Clotilde Martin'}</span>
+            </div>
+            <p className="text-slate-600 mb-2">{content?.agent_role || 'Mandataire BSK Immobilier'}</p>
+            <div className="flex items-center gap-2 text-slate-600 mb-6">
+              <MapPin className="w-4 h-4 text-[#0079e8]" />
+              <span>{content?.agent_location || 'Bardigues (82340)'}</span>
+            </div>
+            <blockquote className="font-heading italic text-slate-700 text-lg border-l-4 border-[#0079e8] pl-4 mb-8">
+              "{content?.agent_quote || 'VENDRE ou ACHETER un bien immobilier est un acte important.'}"
+            </blockquote>
+            <div className="flex flex-wrap gap-4">
+              <a 
+                href={phoneLink}
+                className="flex items-center gap-2 bg-[#0079e8] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#0062bd] transition-colors btn-animate"
+                data-testid="agent-phone-btn"
+              >
+                <Phone className="w-5 h-5" />
+                {content?.agent_phone || '06 20 83 38 87'}
+              </a>
+            </div>
           </div>
-          <p className="text-slate-600 mb-2">{AGENT.role}</p>
-          <div className="flex items-center gap-2 text-slate-600 mb-6">
-            <MapPin className="w-4 h-4 text-[#0079e8]" />
-            <span>{AGENT.location}</span>
-          </div>
-          <blockquote className="font-heading italic text-slate-700 text-lg border-l-4 border-[#0079e8] pl-4 mb-8">
-            "{AGENT.quote}"
-          </blockquote>
-          <div className="flex flex-wrap gap-4">
-            <a 
-              href={AGENT.phoneLink}
-              className="flex items-center gap-2 bg-[#0079e8] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#0062bd] transition-colors btn-animate"
-              data-testid="agent-phone-btn"
-            >
-              <Phone className="w-5 h-5" />
-              {AGENT.phone}
-            </a>
-          </div>
-        </div>
-        <div className="order-1 md:order-2 flex justify-center">
-          <div className="relative">
-            <img 
-              src={AGENT.photo}
-              alt={AGENT.name}
-              className="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover agent-photo"
-            />
-            <div className="absolute -bottom-4 -right-4 bg-white rounded-full p-3 shadow-lg">
-              <CheckCircle className="w-8 h-8 text-[#0079e8]" />
+          <div className="order-1 md:order-2 flex justify-center">
+            <div className="relative">
+              <img 
+                src={content?.agent_photo_url || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face'}
+                alt={content?.agent_name || 'Agent'}
+                className="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover agent-photo"
+              />
+              <div className="absolute -bottom-4 -right-4 bg-white rounded-full p-3 shadow-lg">
+                <CheckCircle className="w-8 h-8 text-[#0079e8]" />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 // Sectors Section
-const SectorsSection = () => (
+const SectorsSection = ({ content, sectors }) => (
   <section className="py-16 md:py-24 px-4" data-testid="sectors-section">
     <div className="max-w-6xl mx-auto">
       <h2 className="font-heading text-3xl md:text-4xl font-semibold text-slate-800 text-center mb-4">
-        Secteurs d'intervention
+        {content?.sectors_section_title || "Secteurs d'intervention"}
       </h2>
       <p className="text-slate-600 text-center mb-12 max-w-2xl mx-auto">
-        Expertise locale sur trois secteurs privilégiés du Tarn-et-Garonne et du Lot
+        {content?.sectors_section_subtitle || "Expertise locale sur trois secteurs privilégiés"}
       </p>
       <div className="grid md:grid-cols-3 gap-6">
-        {SECTORS.map((sector, index) => (
+        {sectors.map((sector) => (
           <Card 
-            key={sector.name} 
+            key={sector.id} 
             className="sector-card border-0 shadow-lg overflow-hidden"
-            data-testid={`sector-card-${sector.name.toLowerCase()}`}
+            data-testid={`sector-card-${sector.name?.toLowerCase()}`}
           >
             <div className="h-48 overflow-hidden">
               <img 
-                src={sector.image}
+                src={sector.image_url || 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=600&h=400&fit=crop'}
                 alt={sector.name}
                 className="w-full h-full object-cover"
               />
@@ -280,7 +238,7 @@ const SectorsSection = () => (
 );
 
 // Lead Form Component
-const LeadForm = ({ formRef }) => {
+const LeadForm = ({ content, sectors }) => {
   const [formData, setFormData] = useState({
     nom: "",
     email: "",
@@ -323,7 +281,7 @@ const LeadForm = ({ formRef }) => {
 
   if (isSubmitted) {
     return (
-      <section ref={formRef} className="py-16 md:py-24 px-4 bg-[#0079e8]" data-testid="form-section">
+      <section className="py-16 md:py-24 px-4 bg-[#0079e8]" data-testid="form-section">
         <div className="max-w-xl mx-auto">
           <div className="lead-form p-8 md:p-12 text-center">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
@@ -331,7 +289,7 @@ const LeadForm = ({ formRef }) => {
               Merci pour votre demande !
             </h3>
             <p className="text-slate-600 mb-6">
-              Clotilde Martin vous contactera très rapidement pour discuter de votre projet.
+              {content?.agent_name || 'Clotilde Martin'} vous contactera très rapidement.
             </p>
             <Button 
               onClick={() => setIsSubmitted(false)}
@@ -348,13 +306,13 @@ const LeadForm = ({ formRef }) => {
   }
 
   return (
-    <section ref={formRef} className="py-16 md:py-24 px-4 bg-[#0079e8]" data-testid="form-section">
+    <section className="py-16 md:py-24 px-4 bg-[#0079e8]" data-testid="form-section">
       <div className="max-w-xl mx-auto">
         <h2 className="font-heading text-3xl md:text-4xl font-semibold text-white text-center mb-4">
-          Recevez une estimation gratuite
+          {content?.form_title || 'Recevez une estimation gratuite'}
         </h2>
         <p className="text-white/90 text-center mb-8">
-          Réponse sous 24h par Clotilde Martin
+          {content?.form_subtitle || 'Réponse sous 24h'}
         </p>
         <form onSubmit={handleSubmit} className="lead-form p-8 md:p-12">
           <div className="space-y-6">
@@ -416,8 +374,8 @@ const LeadForm = ({ formRef }) => {
                   <SelectValue placeholder="Sélectionnez une ville" />
                 </SelectTrigger>
                 <SelectContent>
-                  {SECTORS.map((sector) => (
-                    <SelectItem key={sector.name} value={sector.name}>
+                  {sectors.map((sector) => (
+                    <SelectItem key={sector.id} value={sector.name}>
                       <div className="flex items-center gap-2">
                         <MapPin className="w-4 h-4" />
                         {sector.name} ({sector.code})
@@ -462,7 +420,7 @@ const LeadForm = ({ formRef }) => {
               className="w-full bg-[#0079e8] hover:bg-[#0062bd] text-white text-lg py-6 rounded-full font-semibold btn-animate"
               data-testid="form-submit-btn"
             >
-              {isSubmitting ? "Envoi en cours..." : "Demander un rappel"}
+              {isSubmitting ? "Envoi en cours..." : (content?.form_button_text || "Demander un rappel")}
             </Button>
           </div>
         </form>
@@ -472,68 +430,88 @@ const LeadForm = ({ formRef }) => {
 };
 
 // Footer Component
-const Footer = () => (
-  <footer className="bg-slate-900 text-white py-12 px-4" data-testid="footer">
-    <div className="max-w-6xl mx-auto">
-      <div className="grid md:grid-cols-4 gap-8">
-        <div>
-          <Link to="/" className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 bg-[#0079e8] rounded-lg flex items-center justify-center">
-              <Home className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <span className="font-bold text-[#0079e8] text-lg">BSK</span>
-              <span className="font-medium text-white text-lg"> Immobilier</span>
-            </div>
-          </Link>
-          <p className="text-slate-400">
-            Réseau national d'agents mandataires
-          </p>
-        </div>
-        <div>
-          <h4 className="font-semibold text-lg mb-4">Navigation</h4>
-          <ul className="space-y-2 text-slate-400">
-            <li>
-              <Link to="/" className="hover:text-[#0079e8] transition-colors">Accueil</Link>
-            </li>
-            <li>
-              <Link to="/blog" className="hover:text-[#0079e8] transition-colors">Blog</Link>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="font-semibold text-lg mb-4">Contact</h4>
-          <div className="space-y-3">
-            <a href={AGENT.phoneLink} className="flex items-center gap-2 text-slate-400 hover:text-[#0079e8] transition-colors">
-              <Phone className="w-4 h-4" />
-              {AGENT.phone}
-            </a>
-            <div className="flex items-center gap-2 text-slate-400">
-              <MapPin className="w-4 h-4" />
-              {AGENT.location}
+const Footer = ({ content, sectors }) => {
+  const phoneLink = `tel:${(content?.agent_phone || '06 20 83 38 87').replace(/\s/g, '')}`;
+  
+  return (
+    <footer className="bg-slate-900 text-white py-12 px-4" data-testid="footer">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-4 gap-8">
+          <div>
+            <Link to="/" className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-[#0079e8] rounded-lg flex items-center justify-center">
+                <Home className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <span className="font-bold text-[#0079e8] text-lg">BSK</span>
+                <span className="font-medium text-white text-lg"> Immobilier</span>
+              </div>
+            </Link>
+            <p className="text-slate-400">
+              {content?.footer_tagline || "Réseau national d'agents mandataires"}
+            </p>
+          </div>
+          <div>
+            <h4 className="font-semibold text-lg mb-4">Navigation</h4>
+            <ul className="space-y-2 text-slate-400">
+              <li><Link to="/" className="hover:text-[#0079e8] transition-colors">Accueil</Link></li>
+              <li><Link to="/blog" className="hover:text-[#0079e8] transition-colors">Blog</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold text-lg mb-4">Contact</h4>
+            <div className="space-y-3">
+              <a href={phoneLink} className="flex items-center gap-2 text-slate-400 hover:text-[#0079e8] transition-colors">
+                <Phone className="w-4 h-4" />
+                {content?.agent_phone || '06 20 83 38 87'}
+              </a>
+              <div className="flex items-center gap-2 text-slate-400">
+                <MapPin className="w-4 h-4" />
+                {content?.agent_location || 'Bardigues (82340)'}
+              </div>
             </div>
           </div>
+          <div>
+            <h4 className="font-semibold text-lg mb-4">Secteurs</h4>
+            <ul className="space-y-2 text-slate-400">
+              {sectors.map((sector) => (
+                <li key={sector.id}>{sector.name} ({sector.code})</li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <div>
-          <h4 className="font-semibold text-lg mb-4">Secteurs</h4>
-          <ul className="space-y-2 text-slate-400">
-            {SECTORS.map((sector) => (
-              <li key={sector.name}>{sector.name} ({sector.code})</li>
-            ))}
-          </ul>
+        <div className="border-t border-slate-800 mt-8 pt-8 text-center text-slate-500 text-sm">
+          <p>{content?.footer_copyright || '© 2025 BSK Immobilier. Tous droits réservés.'}</p>
+          <p className="mt-2">{content?.footer_rsac || 'RSAC : 80951794900024 MONTAUBAN'}</p>
         </div>
       </div>
-      <div className="border-t border-slate-800 mt-8 pt-8 text-center text-slate-500 text-sm">
-        <p>© 2025 BSK Immobilier - Clotilde Martin. Tous droits réservés.</p>
-        <p className="mt-2">RSAC : 80951794900024 MONTAUBAN</p>
-      </div>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+};
 
 // Home Page Component
 const HomePage = () => {
-  const formRef = useRef(null);
+  const [content, setContent] = useState(null);
+  const [sectors, setSectors] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [contentRes, sectorsRes] = await Promise.all([
+          axios.get(`${API}/site/content`),
+          axios.get(`${API}/site/sectors`)
+        ]);
+        setContent(contentRes.data);
+        setSectors(sectorsRes.data);
+      } catch (error) {
+        console.error('Error fetching site content:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   const scrollToForm = () => {
     const formElement = document.getElementById('lead-form-section');
@@ -542,32 +520,59 @@ const HomePage = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-pulse text-slate-500">Chargement...</div>
+      </div>
+    );
+  }
+
   return (
     <>
       <SEOHead
-        title="Agent Immobilier Lauzerte, Montcuq, Montaigu-de-Quercy"
-        description="Clotilde Martin, agent immobilier BSK sur Lauzerte, Montcuq et Montaigu-de-Quercy. Accompagnement personnalisé pour vendre ou acheter votre bien immobilier."
+        title={content?.meta_title || "Agent Immobilier Lauzerte, Montcuq, Montaigu-de-Quercy"}
+        description={content?.meta_description || "Agent immobilier BSK sur Lauzerte, Montcuq et Montaigu-de-Quercy."}
         url="/"
       />
-      <Hero onScrollToForm={scrollToForm} />
-      <AgentSection />
-      <SectorsSection />
+      <Hero content={content} onScrollToForm={scrollToForm} />
+      <AgentSection content={content} />
+      <SectorsSection content={content} sectors={sectors} />
       <div id="lead-form-section">
-        <LeadForm formRef={formRef} />
+        <LeadForm content={content} sectors={sectors} />
       </div>
     </>
   );
 };
 
 // Layout Component
-const Layout = ({ children, showHeaderFooter = true }) => {
+const Layout = ({ children }) => {
+  const [content, setContent] = useState(null);
+  const [sectors, setSectors] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [contentRes, sectorsRes] = await Promise.all([
+          axios.get(`${API}/site/content`),
+          axios.get(`${API}/site/sectors`)
+        ]);
+        setContent(contentRes.data);
+        setSectors(sectorsRes.data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="App min-h-screen flex flex-col" data-testid="app-container">
-      {showHeaderFooter && <Header />}
+      <Header content={content} />
       <main className="flex-grow">
         {children}
       </main>
-      {showHeaderFooter && <Footer />}
+      <Footer content={content} sectors={sectors} />
     </div>
   );
 };

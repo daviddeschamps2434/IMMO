@@ -1,8 +1,8 @@
 {
   "summary": {
     "tests_run": 26,
-    "tests_passed": 25,
-    "success_rate": 96.15384615384616
+    "tests_passed": 26,
+    "success_rate": 100.0
   },
   "test_results": [
     {
@@ -26,7 +26,7 @@
       "success": true,
       "response_data": {
         "success": true,
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTc3MTAwMjIwOSwiaWF0IjoxNzcwOTE1ODA5fQ.r8Sb5LIA1p3_HanVO2Gu9Ora-PAgzYqS04Lw1gJFThY",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTc3MTAwMjIyNSwiaWF0IjoxNzcwOTE1ODI1fQ.hFH1YTAvKvEw-6o6wnsTSS4vZnYNvMqLVl-YMjUnxCY",
         "message": "Connexion r\u00e9ussie"
       },
       "error": null
@@ -65,14 +65,14 @@
       "success": true,
       "response_data": {
         "id": "main",
-        "meta_title": "BSK Immobilier - Clotilde Martin | Agent Immobilier Lauzerte, Montcuq",
-        "meta_description": "Agent immobilier BSK sur Lauzerte, Montcuq et Montaigu-de-Quercy. Accompagnement personnalis\u00e9 pour vendre ou acheter votre bien immobilier.",
-        "hero_title": "Confiez votre projet immobilier \u00e0 une experte locale",
+        "meta_title": "Test Title - BSK Immobilier",
+        "meta_description": "Test description for BSK Immobilier",
+        "hero_title": "Test Hero Title",
         "hero_subtitle": "Accompagnement personnalis\u00e9 pour la vente de votre bien sur Lauzerte, Montcuq et Montaigu-de-Quercy",
         "hero_cta_text": "Estimation gratuite",
         "hero_image_url": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&h=1080&fit=crop",
         "agent_section_title": "Votre interlocutrice d\u00e9di\u00e9e",
-        "agent_name": "Clotilde Martin",
+        "agent_name": "Test Agent",
         "agent_role": "Mandataire BSK Immobilier",
         "agent_phone": "06 20 83 38 87",
         "agent_location": "Bardigues (82340)",
@@ -86,7 +86,7 @@
         "footer_tagline": "R\u00e9seau national d'agents mandataires",
         "footer_rsac": "RSAC : 80951794900024 MONTAUBAN",
         "footer_copyright": "\u00a9 2025 BSK Immobilier - Clotilde Martin. Tous droits r\u00e9serv\u00e9s.",
-        "updated_at": "2026-02-12T17:03:29.558983Z"
+        "updated_at": "2026-02-12T17:03:29.594556Z"
       },
       "error": null
     },
@@ -120,7 +120,7 @@
         "footer_tagline": "R\u00e9seau national d'agents mandataires",
         "footer_rsac": "RSAC : 80951794900024 MONTAUBAN",
         "footer_copyright": "\u00a9 2025 BSK Immobilier - Clotilde Martin. Tous droits r\u00e9serv\u00e9s.",
-        "updated_at": "2026-02-12T17:03:29.594556Z"
+        "updated_at": "2026-02-12T17:03:45.901672Z"
       },
       "error": null
     },
@@ -133,25 +133,11 @@
       "success": true,
       "response_data": [
         {
-          "id": "1",
-          "name": "Lauzerte",
-          "code": "82110",
-          "description": "Cit\u00e9 m\u00e9di\u00e9vale du Tarn-et-Garonne",
-          "image_url": "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=600&h=400&fit=crop"
-        },
-        {
-          "id": "2",
-          "name": "Montcuq",
-          "code": "46800",
-          "description": "Charmant village du Lot",
-          "image_url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop"
-        },
-        {
-          "id": "3",
-          "name": "Montaigu-de-Quercy",
-          "code": "82150",
-          "description": "Au c\u0153ur du Quercy Blanc",
-          "image_url": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop"
+          "id": "test1",
+          "name": "Test Sector 1",
+          "code": "12345",
+          "description": "Test description",
+          "image_url": "https://example.com/image.jpg"
         }
       ],
       "error": null
@@ -350,26 +336,27 @@
       "method": "POST",
       "endpoint": "blog/posts",
       "expected_status": 200,
-      "actual_status": 422,
-      "success": false,
-      "response_data": null,
-      "error": {
-        "detail": [
-          {
-            "type": "string_too_short",
-            "loc": [
-              "body",
-              "content"
-            ],
-            "msg": "String should have at least 50 characters",
-            "input": "<p>This is the test blog post content.</p>",
-            "ctx": {
-              "min_length": 50
-            },
-            "url": "https://errors.pydantic.dev/2.12/v/string_too_short"
-          }
-        ]
-      }
+      "actual_status": 200,
+      "success": true,
+      "response_data": {
+        "id": "f40db8fe-8dd6-4623-b2ec-dbea50aa7b59",
+        "title": "Test Blog Post",
+        "slug": "test-blog-post-1770915826",
+        "excerpt": "This is a test blog post excerpt for testing purposes",
+        "content": "<p>This is the test blog post content. It contains enough text to meet the minimum 50 character requirement for blog post content validation.</p>",
+        "category": "Conseils Vente",
+        "tags": [
+          "test",
+          "immobilier"
+        ],
+        "image_url": "",
+        "meta_title": "Test Blog Post",
+        "meta_description": "This is a test blog post excerpt for testing purposes",
+        "published": true,
+        "created_at": "2026-02-12T17:03:46.166237Z",
+        "updated_at": "2026-02-12T17:03:46.166240Z"
+      },
+      "error": null
     },
     {
       "test_name": "Get Blog Post by Slug",
@@ -393,7 +380,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "4208c269-7815-4c83-8cd2-ddf7a2c501c3"
+        "lead_id": "d1e93a3f-dec6-4f09-a96e-89ffb6d47e43"
       },
       "error": null
     },
@@ -482,6 +469,96 @@
       "actual_status": 200,
       "success": true,
       "response_data": [
+        {
+          "id": "d1e93a3f-dec6-4f09-a96e-89ffb6d47e43",
+          "nom": "Jean Dupont",
+          "email": "jean.dupont@example.com",
+          "telephone": "0620833887",
+          "ville": "Lauzerte",
+          "type_bien": "Maison",
+          "created_at": "2026-02-12T17:03:46.241054Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "cffef72d-323c-446b-882a-6f87ddb6b2b7",
+          "nom": "Test Autre",
+          "email": "test.autre@example.com",
+          "telephone": "0620833887",
+          "ville": "Autre",
+          "type_bien": "Maison",
+          "created_at": "2026-02-12T17:03:30.295147Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "479854f4-434b-4d6b-bc63-d4b155874401",
+          "nom": "Test Montaigu-de-Quercy",
+          "email": "test.montaigudequercy@example.com",
+          "telephone": "0620833887",
+          "ville": "Montaigu-de-Quercy",
+          "type_bien": "Maison",
+          "created_at": "2026-02-12T17:03:30.260912Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "2c910655-1695-4544-b43c-76dd5ec73be2",
+          "nom": "Test Montcuq",
+          "email": "test.montcuq@example.com",
+          "telephone": "0620833887",
+          "ville": "Montcuq",
+          "type_bien": "Maison",
+          "created_at": "2026-02-12T17:03:30.223083Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "07bb8668-0c15-495f-8119-a78e08ef451d",
+          "nom": "Test Lauzerte",
+          "email": "test.lauzerte@example.com",
+          "telephone": "0620833887",
+          "ville": "Lauzerte",
+          "type_bien": "Maison",
+          "created_at": "2026-02-12T17:03:30.185446Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "483dcfc6-b367-4de1-99ce-b2677ab3bc57",
+          "nom": "Test Autre b\u00e2timent",
+          "email": "test.autreb\u00e2timent@example.com",
+          "telephone": "0620833887",
+          "ville": "Montcuq",
+          "type_bien": "Autre b\u00e2timent",
+          "created_at": "2026-02-12T17:03:30.150847Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "9fb0c73d-ae44-4f0c-bbde-3905f36b7924",
+          "nom": "Test Terrain",
+          "email": "test.terrain@example.com",
+          "telephone": "0620833887",
+          "ville": "Montcuq",
+          "type_bien": "Terrain",
+          "created_at": "2026-02-12T17:03:30.117179Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "f6d2d2d6-3bc7-4836-90b1-71e29cc3a3ff",
+          "nom": "Test Appartement",
+          "email": "test.appartement@example.com",
+          "telephone": "0620833887",
+          "ville": "Montcuq",
+          "type_bien": "Appartement",
+          "created_at": "2026-02-12T17:03:30.080399Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "ae7c0d52-37f8-44a9-9ddc-36fd8fb4ff2f",
+          "nom": "Test Maison",
+          "email": "test.maison@example.com",
+          "telephone": "0620833887",
+          "ville": "Montcuq",
+          "type_bien": "Maison",
+          "created_at": "2026-02-12T17:03:30.045399Z",
+          "status": "nouveau"
+        },
         {
           "id": "4208c269-7815-4c83-8cd2-ddf7a2c501c3",
           "nom": "Jean Dupont",
@@ -695,7 +772,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "ae7c0d52-37f8-44a9-9ddc-36fd8fb4ff2f"
+        "lead_id": "ca08380d-18bf-4c62-ab97-5e742b848d99"
       },
       "error": null
     },
@@ -709,7 +786,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "f6d2d2d6-3bc7-4836-90b1-71e29cc3a3ff"
+        "lead_id": "cfcff1fe-7918-432b-b844-85a3f69e6411"
       },
       "error": null
     },
@@ -723,7 +800,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "9fb0c73d-ae44-4f0c-bbde-3905f36b7924"
+        "lead_id": "b0f53eea-b6b6-469c-aa3a-0790ef5e3c08"
       },
       "error": null
     },
@@ -737,7 +814,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "483dcfc6-b367-4de1-99ce-b2677ab3bc57"
+        "lead_id": "201b4a04-9374-4079-a1cb-a607f94a3c0f"
       },
       "error": null
     },
@@ -751,7 +828,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "07bb8668-0c15-495f-8119-a78e08ef451d"
+        "lead_id": "a24004eb-4761-49da-9259-8b3a58f08886"
       },
       "error": null
     },
@@ -765,7 +842,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "2c910655-1695-4544-b43c-76dd5ec73be2"
+        "lead_id": "783440e2-5257-4080-84b5-df787858ba51"
       },
       "error": null
     },
@@ -779,7 +856,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "479854f4-434b-4d6b-bc63-d4b155874401"
+        "lead_id": "cf7b634d-3154-4a9d-bd23-2025da2b311a"
       },
       "error": null
     },
@@ -793,7 +870,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "cffef72d-323c-446b-882a-6f87ddb6b2b7"
+        "lead_id": "ff136ad1-7041-4d61-ba14-d6aa7ec02dd5"
       },
       "error": null
     },
@@ -804,7 +881,7 @@
       "expected_status": 200,
       "actual_status": 200,
       "success": true,
-      "response_data": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url>\n    <loc>https://lauzerte-immo.preview.emergentagent.com/</loc>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>\n  </url>\n  <url>\n    <loc>https://lauzerte-immo.preview.emergentagent.com/blog</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.9</priority>\n  </url>\n  <url>\n    <loc>https://lauzerte-immo.preview.emergentagent.com/blog/preparer-vente-maison-lauzerte</loc>\n    <lastmod>2026-02-12</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n  <url>\n    <loc>https://lauzerte-immo.preview.emergentagent.com/blog/marche-immobilier-montcuq-tendances</loc>\n    <lastmod>2026-02-12</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n  <url>\n    <loc>https://lauzerte-immo.preview.emergentagent.com/blog/astuces-deco-valoriser-bien-vente</loc>\n    <lastmod>2026-02-12</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n</urlset>",
+      "response_data": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url>\n    <loc>https://lauzerte-immo.preview.emergentagent.com/</loc>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>\n  </url>\n  <url>\n    <loc>https://lauzerte-immo.preview.emergentagent.com/blog</loc>\n    <changefreq>daily</changefreq>\n    <priority>0.9</priority>\n  </url>\n  <url>\n    <loc>https://lauzerte-immo.preview.emergentagent.com/blog/preparer-vente-maison-lauzerte</loc>\n    <lastmod>2026-02-12</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n  <url>\n    <loc>https://lauzerte-immo.preview.emergentagent.com/blog/marche-immobilier-montcuq-tendances</loc>\n    <lastmod>2026-02-12</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n  <url>\n    <loc>https://lauzerte-immo.preview.emergentagent.com/blog/astuces-deco-valoriser-bien-vente</loc>\n    <lastmod>2026-02-12</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n  <url>\n    <loc>https://lauzerte-immo.preview.emergentagent.com/blog/test-blog-post-1770915826</loc>\n    <lastmod>2026-02-12</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n</urlset>",
       "error": null
     }
   ]

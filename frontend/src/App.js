@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import axios from "axios";
-import { Phone, Mail, MapPin, Home, Building, LandPlot, Warehouse, CheckCircle, User, Menu, X, BookOpen } from "lucide-react";
+import { Phone, Mail, MapPin, Home, Building, LandPlot, Warehouse, CheckCircle, User, Menu, X, BookOpen, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,14 +19,6 @@ import AdminBlog from "@/pages/AdminBlog";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
-
-// Property types
-const PROPERTY_TYPES = [
-  { value: "Maison", label: "Maison", icon: Home },
-  { value: "Appartement", label: "Appartement", icon: Building },
-  { value: "Terrain", label: "Terrain", icon: LandPlot },
-  { value: "Autre bâtiment", label: "Autre bâtiment", icon: Warehouse }
-];
 
 // Header Component with Navigation
 const Header = ({ content }) => {

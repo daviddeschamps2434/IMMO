@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 
 export const SEOHead = ({ 
-  title, 
-  description, 
-  image, 
-  url, 
+  title = '', 
+  description = '', 
+  image = '', 
+  url = '', 
   type = 'website',
   article = null,
   breadcrumbs = null 
@@ -12,6 +12,7 @@ export const SEOHead = ({
   const siteUrl = process.env.REACT_APP_BACKEND_URL || 'https://lauzerte-immo.preview.emergentagent.com';
   const fullUrl = url ? `${siteUrl}${url}` : siteUrl;
   const fullTitle = title ? `${title} | BSK Immobilier - Clotilde Martin` : 'BSK Immobilier - Clotilde Martin';
+  const metaDescription = description || 'Agent immobilier BSK sur Lauzerte, Montcuq et Montaigu-de-Quercy. Accompagnement personnalisé pour vendre ou acheter votre bien.';
   
   // Schema.org for Article
   const articleSchema = article ? {

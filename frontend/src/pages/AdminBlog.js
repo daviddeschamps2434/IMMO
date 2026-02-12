@@ -107,6 +107,7 @@ const LoginPage = ({ onLogin }) => {
 const SiteContentEditor = () => {
   const [content, setContent] = useState(null);
   const [sectors, setSectors] = useState([]);
+  const [formOptions, setFormOptions] = useState({ villes: [], types_bien: [] });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -116,12 +117,14 @@ const SiteContentEditor = () => {
 
   const fetchContent = async () => {
     try {
-      const [contentRes, sectorsRes] = await Promise.all([
+      const [contentRes, sectorsRes, formOptionsRes] = await Promise.all([
         axios.get(`${API}/site/content`),
-        axios.get(`${API}/site/sectors`)
+        axios.get(`${API}/site/sectors`),
+        axios.get(`${API}/site/form-options`)
       ]);
       setContent(contentRes.data);
       setSectors(sectorsRes.data);
+      setFormOptions(formOptionsRes.data);
     } catch (error) {
       toast.error('Erreur lors du chargement');
     } finally {

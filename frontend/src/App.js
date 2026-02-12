@@ -264,10 +264,10 @@ const SectorsSection = ({ content, sectors }) => {
       </div>
     </section>
   );
-);
+};
 
 // Lead Form Component
-const LeadForm = ({ content, sectors }) => {
+const LeadForm = ({ content, formOptions }) => {
   const [formData, setFormData] = useState({
     nom: "",
     email: "",

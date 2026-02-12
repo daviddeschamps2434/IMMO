@@ -1,0 +1,135 @@
+{
+  "design_system": {
+    "theme": "light",
+    "colors": {
+      "primary": "#0079e8",
+      "primary_foreground": "#ffffff",
+      "secondary": "#f1f5f9",
+      "secondary_foreground": "#0f172a",
+      "accent": "#e0f2fe",
+      "accent_foreground": "#0079e8",
+      "background": "#ffffff",
+      "foreground": "#0f172a",
+      "muted": "#f8fafc",
+      "muted_foreground": "#64748b",
+      "border": "#e2e8f0",
+      "input": "#e2e8f0",
+      "ring": "#0079e8"
+    },
+    "typography": {
+      "font_family_heading": "Playfair Display, serif",
+      "font_family_body": "Inter, sans-serif",
+      "scale": {
+        "h1": "text-4xl md:text-5xl font-bold tracking-tight",
+        "h2": "text-3xl md:text-4xl font-semibold tracking-tight",
+        "h3": "text-2xl font-semibold",
+        "body": "text-base leading-relaxed",
+        "small": "text-sm text-muted-foreground"
+      }
+    },
+    "spacing": {
+      "container_padding": "px-4 md:px-6 lg:px-8",
+      "section_spacing": "py-16 md:py-24",
+      "element_spacing": "space-y-6"
+    },
+    "border_radius": {
+      "default": "rounded-lg",
+      "button": "rounded-full",
+      "card": "rounded-xl"
+    },
+    "shadows": {
+      "card": "shadow-lg hover:shadow-xl transition-shadow duration-300",
+      "button": "shadow-md hover:shadow-lg"
+    }
+  },
+  "layout_structure": {
+    "header": {
+      "type": "sticky",
+      "elements": [
+        "Logo (BSK Immobilier)",
+        "Phone Number (Prominent CTA)"
+      ],
+      "style": "bg-white/90 backdrop-blur-md border-b border-slate-100 z-50"
+    },
+    "hero": {
+      "type": "split_or_centered",
+      "background": "image_overlay",
+      "content": [
+        "Headline: Vendez votre bien au meilleur prix",
+        "Subheadline: Accompagnement expert sur Lauzerte, Montcuq et Montaigu-de-Quercy",
+        "CTA: Estimation Gratuite (Scroll to Form)"
+      ]
+    },
+    "agent_profile": {
+      "layout": "grid md:grid-cols-2 gap-12 items-center",
+      "elements": [
+        "Agent Photo (Rounded or Framed)",
+        "Bio Text",
+        "Quote (Italic, Serif)",
+        "Contact Info"
+      ]
+    },
+    "sectors": {
+      "layout": "grid grid-cols-1 md:grid-cols-3 gap-6",
+      "card_style": "image_top_text_bottom"
+    },
+    "lead_form": {
+      "position": "prominent_section",
+      "style": "bg-white p-8 rounded-2xl shadow-2xl border border-slate-100",
+      "fields": [
+        "Nom complet",
+        "Email",
+        "Téléphone",
+        "Ville du bien",
+        "Type de bien (Select)"
+      ]
+    }
+  },
+  "components": {
+    "Button": {
+      "variant": "default",
+      "size": "lg",
+      "class": "bg-[#0079e8] hover:bg-[#0062bd] text-white font-semibold rounded-full px-8 py-6 shadow-blue-200 shadow-lg transform hover:-translate-y-0.5 transition-all"
+    },
+    "Card": {
+      "class": "bg-white rounded-xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 group"
+    },
+    "Input": {
+      "class": "h-12 bg-slate-50 border-slate-200 focus:border-[#0079e8] focus:ring-[#0079e8] rounded-lg"
+    }
+  },
+  "assets": {
+    "images": {
+      "hero_bg": "https://images.unsplash.com/photo-1762640044491-99634d38c619?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "agent_photo": "https://images.unsplash.com/photo-1760543998147-117ae5649c5c?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "lauzerte": "https://images.unsplash.com/photo-1707273549102-f080a8ced169?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "montcuq": "https://images.unsplash.com/photo-1659027793165-017b58be158f?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "montaigu": "https://images.unsplash.com/photo-1685711768138-94e55fde7dce?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "logo_placeholder": "https://placehold.co/200x60/0079e8/ffffff?text=BSK+Immobilier"
+    },
+    "icons": "lucide-react"
+  },
+  "content_strategy": {
+    "headlines": {
+      "hero": "Confiez votre projet immobilier à une experte locale",
+      "form": "Recevez une estimation gratuite sous 24h"
+    },
+    "agent_info": {
+      "name": "Clotilde Martin",
+      "role": "Mandataire BSK Immobilier",
+      "location": "Bardigues (82340)",
+      "phone": "06 20 83 38 87",
+      "quote": "VENDRE ou ACHETER un bien immobilier est un acte important et l'accompagnement d'un professionnel est nécessaire pour réussir votre projet sereinement et en toute sécurité."
+    }
+  },
+  "instructions_to_main_agent": [
+    "Use 'Playfair Display' for all Headings to give a premium/trust feel. Import it from Google Fonts.",
+    "Ensure the Primary Blue (#0079e8) is used for all primary actions (Buttons, Links, Active States).",
+    "The Form must be the focal point of the page. Consider placing a version of it in the Hero or immediately below.",
+    "Use the 'lucide-react' library for icons (Phone, MapPin, Home, Mail).",
+    "Implement smooth scrolling for anchor links.",
+    "Ensure mobile responsiveness is perfect as traffic comes from Meta Ads.",
+    "Use the provided image URLs for the specific sections.",
+    "Add a 'data-testid' to the form submit button and inputs."
+  ]
+}

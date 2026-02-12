@@ -27,6 +27,12 @@ class BSKImmobilierAPITester:
                 response = requests.get(url, headers=headers, timeout=10)
             elif method == 'POST':
                 response = requests.post(url, json=data, headers=headers, timeout=10)
+            elif method == 'PUT':
+                response = requests.put(url, json=data, headers=headers, timeout=10)
+            elif method == 'DELETE':
+                response = requests.delete(url, headers=headers, timeout=10)
+            else:
+                raise ValueError(f"Unsupported method: {method}")
 
             success = response.status_code == expected_status
             
@@ -52,8 +58,10 @@ class BSKImmobilierAPITester:
                 print(f"❌ Failed - Expected {expected_status}, got {response.status_code}")
                 try:
                     result["error"] = response.json()
+                    print(f"Error details: {result['error']}")
                 except:
                     result["error"] = response.text
+                    print(f"Error text: {result['error']}")
 
             self.test_results.append(result)
             return success, response

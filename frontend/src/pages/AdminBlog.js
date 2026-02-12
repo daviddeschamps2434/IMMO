@@ -156,12 +156,54 @@ const SiteContentEditor = () => {
     setSectors(sectors.filter((_, i) => i !== index));
   };
 
+  // Form options handlers
+  const handleVilleChange = (index, field, value) => {
+    const newVilles = [...formOptions.villes];
+    newVilles[index] = { ...newVilles[index], [field]: value };
+    setFormOptions(prev => ({ ...prev, villes: newVilles }));
+  };
+
+  const addVille = () => {
+    setFormOptions(prev => ({
+      ...prev,
+      villes: [...prev.villes, { id: Date.now().toString(), value: '', label: '' }]
+    }));
+  };
+
+  const removeVille = (index) => {
+    setFormOptions(prev => ({
+      ...prev,
+      villes: prev.villes.filter((_, i) => i !== index)
+    }));
+  };
+
+  const handleTypeBienChange = (index, field, value) => {
+    const newTypes = [...formOptions.types_bien];
+    newTypes[index] = { ...newTypes[index], [field]: value };
+    setFormOptions(prev => ({ ...prev, types_bien: newTypes }));
+  };
+
+  const addTypeBien = () => {
+    setFormOptions(prev => ({
+      ...prev,
+      types_bien: [...prev.types_bien, { id: Date.now().toString(), value: '', label: '' }]
+    }));
+  };
+
+  const removeTypeBien = (index) => {
+    setFormOptions(prev => ({
+      ...prev,
+      types_bien: prev.types_bien.filter((_, i) => i !== index)
+    }));
+  };
+
   const saveAll = async () => {
     setSaving(true);
     try {
       await Promise.all([
         axios.put(`${API}/site/content`, content, authHeaders()),
-        axios.put(`${API}/site/sectors`, { sectors }, authHeaders())
+        axios.put(`${API}/site/sectors`, { sectors }, authHeaders()),
+        axios.put(`${API}/site/form-options`, formOptions, authHeaders())
       ]);
       toast.success('Modifications enregistrées');
     } catch (error) {
@@ -186,11 +228,12 @@ const SiteContentEditor = () => {
       </div>
 
       <Tabs defaultValue="seo" className="space-y-6">
-        <TabsList className="grid grid-cols-5 w-full">
+        <TabsList className="grid grid-cols-6 w-full">
           <TabsTrigger value="seo"><Globe className="w-4 h-4 mr-2" />SEO</TabsTrigger>
           <TabsTrigger value="hero"><Layout className="w-4 h-4 mr-2" />Hero</TabsTrigger>
           <TabsTrigger value="agent"><Users className="w-4 h-4 mr-2" />Agent</TabsTrigger>
           <TabsTrigger value="sectors"><MapPin className="w-4 h-4 mr-2" />Secteurs</TabsTrigger>
+          <TabsTrigger value="form"><List className="w-4 h-4 mr-2" />Formulaire</TabsTrigger>
           <TabsTrigger value="footer"><Layers className="w-4 h-4 mr-2" />Footer</TabsTrigger>
         </TabsList>
 

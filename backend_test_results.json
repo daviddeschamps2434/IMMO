@@ -1,8 +1,8 @@
 {
   "summary": {
     "tests_run": 26,
-    "tests_passed": 23,
-    "success_rate": 88.46153846153845
+    "tests_passed": 25,
+    "success_rate": 96.15384615384616
   },
   "test_results": [
     {
@@ -26,7 +26,7 @@
       "success": true,
       "response_data": {
         "success": true,
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTc3MTAwMjE4OCwiaWF0IjoxNzcwOTE1Nzg4fQ.9YRFQ_hQslc_LAn6XdAw7-XdrDgJkuv-xQOEPuzqOG8",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTc3MTAwMjIwOSwiaWF0IjoxNzcwOTE1ODA5fQ.r8Sb5LIA1p3_HanVO2Gu9Ora-PAgzYqS04Lw1gJFThY",
         "message": "Connexion r\u00e9ussie"
       },
       "error": null
@@ -86,7 +86,7 @@
         "footer_tagline": "R\u00e9seau national d'agents mandataires",
         "footer_rsac": "RSAC : 80951794900024 MONTAUBAN",
         "footer_copyright": "\u00a9 2025 BSK Immobilier - Clotilde Martin. Tous droits r\u00e9serv\u00e9s.",
-        "updated_at": "2026-02-12T17:03:08.717619Z"
+        "updated_at": "2026-02-12T17:03:29.558983Z"
       },
       "error": null
     },
@@ -95,10 +95,34 @@
       "method": "PUT",
       "endpoint": "site/content",
       "expected_status": 200,
-      "actual_status": null,
-      "success": false,
-      "response_data": null,
-      "error": "cannot access local variable 'response' where it is not associated with a value"
+      "actual_status": 200,
+      "success": true,
+      "response_data": {
+        "id": "main",
+        "meta_title": "Test Title - BSK Immobilier",
+        "meta_description": "Test description for BSK Immobilier",
+        "hero_title": "Test Hero Title",
+        "hero_subtitle": "Accompagnement personnalis\u00e9 pour la vente de votre bien sur Lauzerte, Montcuq et Montaigu-de-Quercy",
+        "hero_cta_text": "Estimation gratuite",
+        "hero_image_url": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&h=1080&fit=crop",
+        "agent_section_title": "Votre interlocutrice d\u00e9di\u00e9e",
+        "agent_name": "Test Agent",
+        "agent_role": "Mandataire BSK Immobilier",
+        "agent_phone": "06 20 83 38 87",
+        "agent_location": "Bardigues (82340)",
+        "agent_quote": "VENDRE ou ACHETER un bien immobilier est un acte important et l'accompagnement d'un professionnel est n\u00e9cessaire pour r\u00e9ussir votre projet sereinement et en toute s\u00e9curit\u00e9.",
+        "agent_photo_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face",
+        "sectors_section_title": "Secteurs d'intervention",
+        "sectors_section_subtitle": "Expertise locale sur trois secteurs privil\u00e9gi\u00e9s du Tarn-et-Garonne et du Lot",
+        "form_title": "Recevez une estimation gratuite",
+        "form_subtitle": "R\u00e9ponse sous 24h par Clotilde Martin",
+        "form_button_text": "Demander un rappel",
+        "footer_tagline": "R\u00e9seau national d'agents mandataires",
+        "footer_rsac": "RSAC : 80951794900024 MONTAUBAN",
+        "footer_copyright": "\u00a9 2025 BSK Immobilier - Clotilde Martin. Tous droits r\u00e9serv\u00e9s.",
+        "updated_at": "2026-02-12T17:03:29.594556Z"
+      },
+      "error": null
     },
     {
       "test_name": "Get Sectors",
@@ -137,10 +161,18 @@
       "method": "PUT",
       "endpoint": "site/sectors",
       "expected_status": 200,
-      "actual_status": null,
-      "success": false,
-      "response_data": null,
-      "error": "cannot access local variable 'response' where it is not associated with a value"
+      "actual_status": 200,
+      "success": true,
+      "response_data": [
+        {
+          "id": "test1",
+          "name": "Test Sector 1",
+          "code": "12345",
+          "description": "Test description",
+          "image_url": "https://example.com/image.jpg"
+        }
+      ],
+      "error": null
     },
     {
       "test_name": "Get Blog Posts",
@@ -361,7 +393,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "c1b02acc-ecce-4102-bb29-6fe167df53cd"
+        "lead_id": "4208c269-7815-4c83-8cd2-ddf7a2c501c3"
       },
       "error": null
     },
@@ -450,6 +482,96 @@
       "actual_status": 200,
       "success": true,
       "response_data": [
+        {
+          "id": "4208c269-7815-4c83-8cd2-ddf7a2c501c3",
+          "nom": "Jean Dupont",
+          "email": "jean.dupont@example.com",
+          "telephone": "0620833887",
+          "ville": "Lauzerte",
+          "type_bien": "Maison",
+          "created_at": "2026-02-12T17:03:29.905476Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "bf38b94e-f756-418d-8d78-6dd6d136056d",
+          "nom": "Test Autre",
+          "email": "test.autre@example.com",
+          "telephone": "0620833887",
+          "ville": "Autre",
+          "type_bien": "Maison",
+          "created_at": "2026-02-12T17:03:09.455301Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "f1e9a4df-db0a-44c5-bb4e-97b4ef6a7b95",
+          "nom": "Test Montaigu-de-Quercy",
+          "email": "test.montaigudequercy@example.com",
+          "telephone": "0620833887",
+          "ville": "Montaigu-de-Quercy",
+          "type_bien": "Maison",
+          "created_at": "2026-02-12T17:03:09.417320Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "2a2dc007-0716-44e4-b039-51ca0c445949",
+          "nom": "Test Montcuq",
+          "email": "test.montcuq@example.com",
+          "telephone": "0620833887",
+          "ville": "Montcuq",
+          "type_bien": "Maison",
+          "created_at": "2026-02-12T17:03:09.380046Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "2d7eb4a9-bdaf-4894-97a8-6ecf09d44921",
+          "nom": "Test Lauzerte",
+          "email": "test.lauzerte@example.com",
+          "telephone": "0620833887",
+          "ville": "Lauzerte",
+          "type_bien": "Maison",
+          "created_at": "2026-02-12T17:03:09.340975Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "a092efd2-fc61-4e4e-9042-9895ce9694cd",
+          "nom": "Test Autre b\u00e2timent",
+          "email": "test.autreb\u00e2timent@example.com",
+          "telephone": "0620833887",
+          "ville": "Montcuq",
+          "type_bien": "Autre b\u00e2timent",
+          "created_at": "2026-02-12T17:03:09.306938Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "a4a12ec1-b933-4c19-bcdf-bebcd63a6e50",
+          "nom": "Test Terrain",
+          "email": "test.terrain@example.com",
+          "telephone": "0620833887",
+          "ville": "Montcuq",
+          "type_bien": "Terrain",
+          "created_at": "2026-02-12T17:03:09.270415Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "8e07b323-e9ae-4489-bb03-cb1ad5d69ca2",
+          "nom": "Test Appartement",
+          "email": "test.appartement@example.com",
+          "telephone": "0620833887",
+          "ville": "Montcuq",
+          "type_bien": "Appartement",
+          "created_at": "2026-02-12T17:03:09.204488Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "36157869-dbc2-4ab3-91c0-3d9b2b643f98",
+          "nom": "Test Maison",
+          "email": "test.maison@example.com",
+          "telephone": "0620833887",
+          "ville": "Montcuq",
+          "type_bien": "Maison",
+          "created_at": "2026-02-12T17:03:09.168742Z",
+          "status": "nouveau"
+        },
         {
           "id": "c1b02acc-ecce-4102-bb29-6fe167df53cd",
           "nom": "Jean Dupont",
@@ -573,7 +695,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "36157869-dbc2-4ab3-91c0-3d9b2b643f98"
+        "lead_id": "ae7c0d52-37f8-44a9-9ddc-36fd8fb4ff2f"
       },
       "error": null
     },
@@ -587,7 +709,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "8e07b323-e9ae-4489-bb03-cb1ad5d69ca2"
+        "lead_id": "f6d2d2d6-3bc7-4836-90b1-71e29cc3a3ff"
       },
       "error": null
     },
@@ -601,7 +723,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "a4a12ec1-b933-4c19-bcdf-bebcd63a6e50"
+        "lead_id": "9fb0c73d-ae44-4f0c-bbde-3905f36b7924"
       },
       "error": null
     },
@@ -615,7 +737,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "a092efd2-fc61-4e4e-9042-9895ce9694cd"
+        "lead_id": "483dcfc6-b367-4de1-99ce-b2677ab3bc57"
       },
       "error": null
     },
@@ -629,7 +751,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "2d7eb4a9-bdaf-4894-97a8-6ecf09d44921"
+        "lead_id": "07bb8668-0c15-495f-8119-a78e08ef451d"
       },
       "error": null
     },
@@ -643,7 +765,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "2a2dc007-0716-44e4-b039-51ca0c445949"
+        "lead_id": "2c910655-1695-4544-b43c-76dd5ec73be2"
       },
       "error": null
     },
@@ -657,7 +779,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "f1e9a4df-db0a-44c5-bb4e-97b4ef6a7b95"
+        "lead_id": "479854f4-434b-4d6b-bc63-d4b155874401"
       },
       "error": null
     },
@@ -671,7 +793,7 @@
       "response_data": {
         "success": true,
         "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Nous vous contacterons rapidement.",
-        "lead_id": "bf38b94e-f756-418d-8d78-6dd6d136056d"
+        "lead_id": "cffef72d-323c-446b-882a-6f87ddb6b2b7"
       },
       "error": null
     },

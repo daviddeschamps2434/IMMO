@@ -575,17 +575,15 @@ const Layout = ({ children, showHeaderFooter = true }) => {
 // Main App Component
 function App() {
   return (
-    <HelmetProvider>
-      <BrowserRouter>
-        <Toaster position="top-center" richColors />
-        <Routes>
-          <Route path="/" element={<Layout><HomePage /></Layout>} />
-          <Route path="/blog" element={<Layout><BlogList /></Layout>} />
-          <Route path="/blog/:slug" element={<Layout><BlogPost /></Layout>} />
-          <Route path="/admin" element={<AdminBlog />} />
-        </Routes>
-      </BrowserRouter>
-    </HelmetProvider>
+    <BrowserRouter>
+      <Toaster position="top-center" richColors />
+      <Routes>
+        <Route path="/" element={<Layout><HomePage /></Layout>} />
+        <Route path="/blog" element={<Layout><BlogList /></Layout>} />
+        <Route path="/blog/:slug" element={<Layout><BlogPost /></Layout>} />
+        <Route path="/admin" element={<AdminBlog />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

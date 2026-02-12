@@ -565,7 +565,7 @@ const HomePage = () => {
       <AgentSection content={content} />
       <SectorsSection content={content} sectors={sectors} />
       <div id="lead-form-section">
-        <LeadForm content={content} sectors={sectors} />
+        <LeadForm content={content} formOptions={formOptions} />
       </div>
     </>
   );

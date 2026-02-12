@@ -397,6 +397,15 @@ const SiteContentEditor = () => {
                   <img src={content.agent_photo_url} alt="Preview" className="mt-2 w-24 h-24 object-cover rounded-full" />
                 )}
               </div>
+              <div>
+                <Label>URL page "Mes biens" (bouton Voir tous mes biens)</Label>
+                <Input
+                  value={content?.agent_biens_url || ''}
+                  onChange={(e) => handleContentChange('agent_biens_url', e.target.value)}
+                  placeholder="https://bskimmobilier.com/..."
+                  className="mt-1"
+                />
+              </div>
             </CardContent>
           </Card>
         </TabsContent>

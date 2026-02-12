@@ -271,6 +271,44 @@ async def update_sectors(data: SectorsUpdate, username: str = Depends(verify_tok
     
     return data.sectors
 
+# Form Options endpoints
+@api_router.get("/site/form-options", response_model=FormOptions)
+async def get_form_options():
+    options = await db.form_options.find_one({"id": "main"}, {"_id": 0})
+    if not options:
+        # Return defaults
+        return FormOptions(
+            villes=[
+                FormOptionItem(id="1", value="Lauzerte", label="Lauzerte (82110)"),
+                FormOptionItem(id="2", value="Montcuq", label="Montcuq (46800)"),
+                FormOptionItem(id="3", value="Montaigu-de-Quercy", label="Montaigu-de-Quercy (82150)"),
+                FormOptionItem(id="4", value="Autre", label="Autre commune"),
+            ],
+            types_bien=[
+                FormOptionItem(id="1", value="Maison", label="Maison"),
+                FormOptionItem(id="2", value="Appartement", label="Appartement"),
+                FormOptionItem(id="3", value="Terrain", label="Terrain"),
+                FormOptionItem(id="4", value="Autre bâtiment", label="Autre bâtiment"),
+            ]
+        )
+    return options
+
+@api_router.put("/site/form-options", response_model=FormOptions)
+async def update_form_options(data: FormOptionsUpdate, username: str = Depends(verify_token)):
+    doc = {
+        "id": "main",
+        "villes": [v.model_dump() for v in data.villes],
+        "types_bien": [t.model_dump() for t in data.types_bien]
+    }
+    
+    await db.form_options.update_one(
+        {"id": "main"},
+        {"$set": doc},
+        upsert=True
+    )
+    
+    return FormOptions(villes=data.villes, types_bien=data.types_bien)
+
 # ==================== LEADS ROUTES ====================
 @api_router.post("/leads", response_model=LeadResponse)
 async def create_lead(input: LeadCreate):

@@ -304,32 +304,57 @@ class BSKImmobilierAPITester:
         return self.run_test("Get Sitemap", "GET", "sitemap.xml", 200)
 
 def main():
-    print("🏠 BSK Immobilier API Testing")
-    print("=" * 50)
+    print("🏠 BSK Immobilier API Testing - Complete Admin & Blog System")
+    print("=" * 60)
     
     tester = BSKImmobilierAPITester()
     
-    # Run all tests
+    # Test basic API connectivity
     print("\n📡 Testing API connectivity...")
     tester.test_api_root()
     
-    print("\n📝 Testing lead creation...")
+    # Test admin authentication
+    print("\n🔐 Testing admin authentication...")
+    tester.test_admin_login_valid()
+    tester.test_admin_login_invalid()
+    tester.test_auth_verify()
+    
+    # Test site content management
+    print("\n🏠 Testing site content management...")
+    tester.test_get_site_content()
+    tester.test_update_site_content()
+    tester.test_get_sectors()
+    tester.test_update_sectors()
+    
+    # Test blog functionality
+    print("\n📝 Testing blog functionality...")
+    tester.test_get_blog_posts()
+    tester.test_get_blog_categories()
+    tester.test_get_recent_posts()
+    tester.test_create_blog_post()
+    tester.test_get_blog_post_by_slug()
+    
+    # Test lead functionality
+    print("\n📋 Testing lead functionality...")
     tester.test_create_lead_valid()
     tester.test_create_lead_missing_fields()
     tester.test_create_lead_invalid_email()
+    tester.test_get_leads_protected()
     
-    print("\n📋 Testing lead retrieval...")
-    tester.test_get_leads()
-    
+    # Test comprehensive lead creation
     print("\n🏘️ Testing all property types...")
     tester.test_create_lead_all_property_types()
     
     print("\n🗺️ Testing all cities...")
     tester.test_create_lead_all_cities()
     
+    # Test additional endpoints
+    print("\n🗺️ Testing additional endpoints...")
+    tester.test_sitemap()
+    
     # Print final results
     print(f"\n📊 Final Results")
-    print("=" * 50)
+    print("=" * 60)
     print(f"Tests run: {tester.tests_run}")
     print(f"Tests passed: {tester.tests_passed}")
     print(f"Success rate: {(tester.tests_passed/tester.tests_run)*100:.1f}%")

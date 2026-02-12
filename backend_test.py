@@ -268,8 +268,8 @@ class BSKImmobilierAPITester:
         post_data = {
             "title": "Test Blog Post",
             "slug": "test-blog-post-" + str(int(datetime.now().timestamp())),
-            "excerpt": "This is a test blog post excerpt",
-            "content": "<p>This is the test blog post content.</p>",
+            "excerpt": "This is a test blog post excerpt for testing purposes",
+            "content": "<p>This is the test blog post content. It contains enough text to meet the minimum 50 character requirement for blog post content validation.</p>",
             "category": "Conseils Vente",
             "tags": ["test", "immobilier"],
             "published": True

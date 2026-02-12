@@ -1,0 +1,255 @@
+{
+  "summary": {
+    "tests_run": 13,
+    "tests_passed": 13,
+    "success_rate": 100.0
+  },
+  "test_results": [
+    {
+      "test_name": "API Root",
+      "method": "GET",
+      "endpoint": "",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "response_data": {
+        "message": "BSK Immobilier API - Clotilde Martin"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Valid Lead",
+      "method": "POST",
+      "endpoint": "leads",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "response_data": {
+        "success": true,
+        "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Clotilde Martin vous contactera rapidement.",
+        "lead_id": "c48f990c-c464-4588-b0f0-2c06f8a83eb1"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Lead Missing Fields",
+      "method": "POST",
+      "endpoint": "leads",
+      "expected_status": 422,
+      "actual_status": 422,
+      "success": true,
+      "response_data": {
+        "detail": [
+          {
+            "type": "missing",
+            "loc": [
+              "body",
+              "telephone"
+            ],
+            "msg": "Field required",
+            "input": {
+              "nom": "Jean Dupont",
+              "email": "jean.dupont@example.com"
+            },
+            "url": "https://errors.pydantic.dev/2.12/v/missing"
+          },
+          {
+            "type": "missing",
+            "loc": [
+              "body",
+              "ville"
+            ],
+            "msg": "Field required",
+            "input": {
+              "nom": "Jean Dupont",
+              "email": "jean.dupont@example.com"
+            },
+            "url": "https://errors.pydantic.dev/2.12/v/missing"
+          },
+          {
+            "type": "missing",
+            "loc": [
+              "body",
+              "type_bien"
+            ],
+            "msg": "Field required",
+            "input": {
+              "nom": "Jean Dupont",
+              "email": "jean.dupont@example.com"
+            },
+            "url": "https://errors.pydantic.dev/2.12/v/missing"
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Lead Invalid Email",
+      "method": "POST",
+      "endpoint": "leads",
+      "expected_status": 422,
+      "actual_status": 422,
+      "success": true,
+      "response_data": {
+        "detail": [
+          {
+            "type": "value_error",
+            "loc": [
+              "body",
+              "email"
+            ],
+            "msg": "value is not a valid email address: An email address must have an @-sign.",
+            "input": "invalid-email",
+            "ctx": {
+              "reason": "An email address must have an @-sign."
+            }
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "test_name": "Get All Leads",
+      "method": "GET",
+      "endpoint": "leads",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "response_data": [
+        {
+          "id": "15be7744-6364-4b02-8556-8ac0b445b38b",
+          "nom": "Test User",
+          "email": "test@example.com",
+          "telephone": "0612345678",
+          "ville": "Lauzerte",
+          "type_bien": "Maison",
+          "created_at": "2026-02-12T13:10:22.491929Z",
+          "status": "nouveau"
+        },
+        {
+          "id": "c48f990c-c464-4588-b0f0-2c06f8a83eb1",
+          "nom": "Jean Dupont",
+          "email": "jean.dupont@example.com",
+          "telephone": "0620833887",
+          "ville": "Lauzerte",
+          "type_bien": "Maison",
+          "created_at": "2026-02-12T13:11:54.276340Z",
+          "status": "nouveau"
+        }
+      ],
+      "error": null
+    },
+    {
+      "test_name": "Create Lead - Maison",
+      "method": "POST",
+      "endpoint": "leads",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "response_data": {
+        "success": true,
+        "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Clotilde Martin vous contactera rapidement.",
+        "lead_id": "34ffb3c3-27f8-4740-b7e6-c9a1f4e7b775"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Lead - Appartement",
+      "method": "POST",
+      "endpoint": "leads",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "response_data": {
+        "success": true,
+        "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Clotilde Martin vous contactera rapidement.",
+        "lead_id": "8f77cf80-fa95-4c9c-9524-a920208298ba"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Lead - Terrain",
+      "method": "POST",
+      "endpoint": "leads",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "response_data": {
+        "success": true,
+        "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Clotilde Martin vous contactera rapidement.",
+        "lead_id": "3520df1b-5c01-4180-9c96-bfe68554ec47"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Lead - Autre b\u00e2timent",
+      "method": "POST",
+      "endpoint": "leads",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "response_data": {
+        "success": true,
+        "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Clotilde Martin vous contactera rapidement.",
+        "lead_id": "e0858a35-1b28-44c4-b8b5-e58fa9d2cdd3"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Lead - Lauzerte",
+      "method": "POST",
+      "endpoint": "leads",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "response_data": {
+        "success": true,
+        "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Clotilde Martin vous contactera rapidement.",
+        "lead_id": "3247339a-bcaa-4b55-8bfd-03efc3050077"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Lead - Montcuq",
+      "method": "POST",
+      "endpoint": "leads",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "response_data": {
+        "success": true,
+        "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Clotilde Martin vous contactera rapidement.",
+        "lead_id": "e46eb776-e4cb-4327-adca-45934fc52d38"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Lead - Montaigu-de-Quercy",
+      "method": "POST",
+      "endpoint": "leads",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "response_data": {
+        "success": true,
+        "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Clotilde Martin vous contactera rapidement.",
+        "lead_id": "b7bda675-9db1-4a51-a97d-91177ee26656"
+      },
+      "error": null
+    },
+    {
+      "test_name": "Create Lead - Autre",
+      "method": "POST",
+      "endpoint": "leads",
+      "expected_status": 200,
+      "actual_status": 200,
+      "success": true,
+      "response_data": {
+        "success": true,
+        "message": "Votre demande a \u00e9t\u00e9 enregistr\u00e9e. Clotilde Martin vous contactera rapidement.",
+        "lead_id": "3ca1d4a2-dda8-49e2-8db2-4c70bc2a1176"
+      },
+      "error": null
+    }
+  ]
+}

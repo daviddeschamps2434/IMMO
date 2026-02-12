@@ -516,7 +516,7 @@ const BlogPostsManager = () => {
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API}/blog/posts`, { params: { published_only: false, per_page: 100 } });
+      const response = await axios.get(`${API}/blog/posts`, { params: { published_only: false, per_page: 50 } });
       setPosts(response.data.posts);
     } catch (error) {
       toast.error('Erreur lors du chargement');

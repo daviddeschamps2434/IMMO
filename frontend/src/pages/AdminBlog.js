@@ -4,7 +4,7 @@ import axios from 'axios';
 import { 
   Plus, Edit, Trash2, Eye, EyeOff, ArrowLeft, Save, X, 
   LogOut, Home, FileText, Settings, Users, Layout, Globe,
-  Phone, MapPin, Image, Type, AlignLeft, Layers
+  Phone, MapPin, Image, Type, AlignLeft, Layers, List, ExternalLink
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

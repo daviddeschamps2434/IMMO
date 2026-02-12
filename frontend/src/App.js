@@ -403,20 +403,14 @@ const LeadForm = ({ content, formOptions }) => {
                   <SelectValue placeholder="Sélectionnez une ville" />
                 </SelectTrigger>
                 <SelectContent>
-                  {sectors.map((sector) => (
-                    <SelectItem key={sector.id} value={sector.name}>
+                  {formOptions?.villes?.map((ville) => (
+                    <SelectItem key={ville.id} value={ville.value}>
                       <div className="flex items-center gap-2">
                         <MapPin className="w-4 h-4" />
-                        {sector.name} ({sector.code})
+                        {ville.label}
                       </div>
                     </SelectItem>
                   ))}
-                  <SelectItem value="Autre">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4" />
-                      Autre commune
-                    </div>
-                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -431,10 +425,10 @@ const LeadForm = ({ content, formOptions }) => {
                   <SelectValue placeholder="Sélectionnez le type de bien" />
                 </SelectTrigger>
                 <SelectContent>
-                  {PROPERTY_TYPES.map((type) => (
-                    <SelectItem key={type.value} value={type.value}>
+                  {formOptions?.types_bien?.map((type) => (
+                    <SelectItem key={type.id} value={type.value}>
                       <div className="flex items-center gap-2">
-                        <type.icon className="w-4 h-4" />
+                        <Home className="w-4 h-4" />
                         {type.label}
                       </div>
                     </SelectItem>

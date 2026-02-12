@@ -1,55 +1,68 @@
-# PRD - Landing Page BSK Immobilier - Clotilde Martin
+# PRD - Site Vitrine BSK Immobilier - Clotilde Martin
 
 ## Problem Statement Original
-Publicité Meta pour une recherche de biens sur les secteurs de Lauzerte (82), Montcuq (46) et Montaigu-de-Quercy (82) avec formulaire de réponse court (formulaire de rappel avec ville).
+1. Landing page publicitaire Meta pour recherche de biens sur Lauzerte (82), Montcuq (46) et Montaigu-de-Quercy (82)
+2. Blog optimisé SEO avec interface admin
+3. Back-office d'administration avec authentification
 
 ## User Personas
-- **Propriétaires vendeurs**: Personnes souhaitant vendre leur bien immobilier (maison, appartement, terrain, autre bâtiment) dans les secteurs ciblés
-- **Trafic Meta Ads**: Utilisateurs provenant de publicités Facebook/Instagram, majoritairement sur mobile
+- **Propriétaires vendeurs**: Personnes souhaitant vendre leur bien immobilier
+- **Visiteurs blog**: Propriétaires cherchant des conseils immobiliers
+- **Admin**: Clotilde Martin pour gérer le contenu du site
 
 ## Core Requirements
-- Landing page optimisée pour conversion publicitaire Meta
-- Présentation de l'agent Clotilde Martin (BSK Immobilier)
-- Secteurs d'intervention: Lauzerte (82110), Montcuq (46800), Montaigu-de-Quercy (82150)
-- Formulaire de rappel: Nom, Email, Téléphone, Ville, Type de bien
+- Landing page avec formulaire de rappel
+- Blog avec fonctionnalités SEO avancées (catégories, tags, schema.org, sitemap)
+- Back-office sécurisé pour gérer tout le contenu
 - Design BSK: blanc et bleu #0079e8
-- Stockage des leads en base de données MongoDB
 
 ## What's Been Implemented (Dec 2025)
-### Backend (FastAPI)
-- [x] API endpoint POST /api/leads - Création de demandes de rappel
-- [x] API endpoint GET /api/leads - Récupération des leads (admin)
-- [x] Validation des champs (email, longueur min/max)
-- [x] Stockage MongoDB avec horodatage
+
+### Backend (FastAPI + MongoDB)
+- [x] Authentification JWT (admin / hMX181haIwKrkOhj)
+- [x] API CRUD contenu du site (/api/site/content, /api/site/sectors)
+- [x] API CRUD articles blog (/api/blog/posts)
+- [x] API leads avec protection auth (/api/leads)
+- [x] Sitemap XML dynamique (/api/sitemap.xml)
+- [x] Catégories et tags pour le blog
 
 ### Frontend (React + Tailwind + Shadcn)
-- [x] Header sticky avec logo BSK et numéro de téléphone cliquable
-- [x] Hero section avec image de fond et CTA "Estimation gratuite"
-- [x] Section Agent: Photo, nom, rôle, citation, bouton téléphone
-- [x] Section Secteurs: 3 cartes (Lauzerte, Montcuq, Montaigu-de-Quercy)
-- [x] Formulaire de lead avec tous les champs demandés
-- [x] Sélecteurs dropdown pour Ville et Type de bien
-- [x] Message de succès après soumission
-- [x] Footer avec coordonnées
-- [x] Design responsive mobile-first
-- [x] Typographie: Playfair Display (titres) + Inter (corps)
+- [x] Page d'accueil dynamique (contenu depuis BDD)
+- [x] Blog avec liste d'articles et filtres
+- [x] Page article avec SEO complet (schema.org, Open Graph)
+- [x] Back-office avec authentification
+- [x] Gestion SEO (meta title, meta description)
+- [x] Gestion Hero (titre, sous-titre, CTA, image)
+- [x] Gestion Agent (nom, téléphone, citation, photo)
+- [x] Gestion Secteurs (ajout/suppression dynamique)
+- [x] Gestion Footer (slogan, RSAC, copyright)
+- [x] Gestion Blog (CRUD articles)
+- [x] Gestion Contacts (visualisation leads)
+
+### Credentials
+- URL Admin: /admin
+- Username: admin
+- Password: hMX181haIwKrkOhj
 
 ## Prioritized Backlog
+
 ### P0 - Critique (Fait ✓)
 - [x] Landing page fonctionnelle
-- [x] Formulaire de capture leads
+- [x] Blog SEO
+- [x] Back-office avec authentification
 
 ### P1 - Important (À faire)
-- [ ] Interface admin pour visualiser les leads
 - [ ] Export CSV des leads
-- [ ] Notification email lors d'un nouveau lead
+- [ ] Éditeur WYSIWYG pour le blog
+- [ ] Changement de mot de passe admin
 
 ### P2 - Nice to have
-- [ ] Intégration Google Analytics / Meta Pixel
-- [ ] A/B testing sur les accroches
-- [ ] Témoignages clients dynamiques
+- [ ] Meta Pixel Facebook
+- [ ] Google Analytics
+- [ ] Témoignages clients
+- [ ] Galerie de biens vendus
 
 ## Next Tasks
-1. Créer une interface admin simple pour consulter les leads
-2. Ajouter le Meta Pixel pour le tracking des conversions
-3. Configurer les notifications email (optionnel)
+1. Ajouter Meta Pixel pour tracking des conversions publicitaires
+2. Créer un éditeur visuel pour les articles (WYSIWYG)
+3. Ajouter export CSV des leads

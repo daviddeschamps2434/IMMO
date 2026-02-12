@@ -150,6 +150,159 @@ class BSKImmobilierAPITester:
         
         return all_passed
 
+    def test_admin_login_valid(self):
+        """Test admin login with valid credentials"""
+        login_data = {
+            "username": "admin",
+            "password": "hMX181haIwKrkOhj"
+        }
+        success, response = self.run_test("Admin Login Valid", "POST", "auth/login", 200, login_data)
+        if success and response:
+            try:
+                data = response.json()
+                if data.get('success') and data.get('token'):
+                    self.admin_token = data['token']
+                    print(f"✅ Admin token obtained: {self.admin_token[:20]}...")
+                    return True
+            except:
+                pass
+        return False
+
+    def test_admin_login_invalid(self):
+        """Test admin login with invalid credentials"""
+        login_data = {
+            "username": "admin",
+            "password": "wrongpassword"
+        }
+        return self.run_test("Admin Login Invalid", "POST", "auth/login", 401, login_data)
+
+    def test_auth_verify(self):
+        """Test auth verification with token"""
+        if not self.admin_token:
+            print("❌ No admin token available for verification test")
+            return False
+        
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.admin_token}'
+        }
+        return self.run_test("Auth Verify", "GET", "auth/verify", 200, headers=headers)
+
+    def test_get_site_content(self):
+        """Test getting site content"""
+        return self.run_test("Get Site Content", "GET", "site/content", 200)
+
+    def test_update_site_content(self):
+        """Test updating site content (requires auth)"""
+        if not self.admin_token:
+            print("❌ No admin token available for site content update test")
+            return False
+        
+        content_data = {
+            "meta_title": "Test Title - BSK Immobilier",
+            "meta_description": "Test description for BSK Immobilier",
+            "hero_title": "Test Hero Title",
+            "agent_name": "Test Agent"
+        }
+        
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.admin_token}'
+        }
+        return self.run_test("Update Site Content", "PUT", "site/content", 200, content_data, headers)
+
+    def test_get_sectors(self):
+        """Test getting sectors"""
+        return self.run_test("Get Sectors", "GET", "site/sectors", 200)
+
+    def test_update_sectors(self):
+        """Test updating sectors (requires auth)"""
+        if not self.admin_token:
+            print("❌ No admin token available for sectors update test")
+            return False
+        
+        sectors_data = {
+            "sectors": [
+                {
+                    "id": "test1",
+                    "name": "Test Sector 1",
+                    "code": "12345",
+                    "description": "Test description",
+                    "image_url": "https://example.com/image.jpg"
+                }
+            ]
+        }
+        
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.admin_token}'
+        }
+        return self.run_test("Update Sectors", "PUT", "site/sectors", 200, sectors_data, headers)
+
+    def test_get_blog_posts(self):
+        """Test getting blog posts"""
+        return self.run_test("Get Blog Posts", "GET", "blog/posts", 200)
+
+    def test_get_blog_categories(self):
+        """Test getting blog categories"""
+        return self.run_test("Get Blog Categories", "GET", "blog/categories", 200)
+
+    def test_get_recent_posts(self):
+        """Test getting recent posts"""
+        return self.run_test("Get Recent Posts", "GET", "blog/recent", 200)
+
+    def test_create_blog_post(self):
+        """Test creating a blog post (requires auth)"""
+        if not self.admin_token:
+            print("❌ No admin token available for blog post creation test")
+            return False
+        
+        post_data = {
+            "title": "Test Blog Post",
+            "slug": "test-blog-post-" + str(int(datetime.now().timestamp())),
+            "excerpt": "This is a test blog post excerpt",
+            "content": "<p>This is the test blog post content.</p>",
+            "category": "Conseils Vente",
+            "tags": ["test", "immobilier"],
+            "published": True
+        }
+        
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.admin_token}'
+        }
+        success, response = self.run_test("Create Blog Post", "POST", "blog/posts", 200, post_data, headers)
+        
+        if success and response:
+            try:
+                data = response.json()
+                self.test_blog_post_id = data.get('id')
+                return True
+            except:
+                pass
+        return False
+
+    def test_get_blog_post_by_slug(self):
+        """Test getting a blog post by slug"""
+        # Use a test slug - if no posts exist, this will return 404 which is expected
+        return self.run_test("Get Blog Post by Slug", "GET", "blog/posts/test-slug", 404)
+
+    def test_get_leads_protected(self):
+        """Test getting leads (requires auth)"""
+        if not self.admin_token:
+            print("❌ No admin token available for protected leads test")
+            return False
+        
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.admin_token}'
+        }
+        return self.run_test("Get Leads Protected", "GET", "leads", 200, headers=headers)
+
+    def test_sitemap(self):
+        """Test sitemap generation"""
+        return self.run_test("Get Sitemap", "GET", "sitemap.xml", 200)
+
 def main():
     print("🏠 BSK Immobilier API Testing")
     print("=" * 50)

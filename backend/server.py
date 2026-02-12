@@ -88,6 +88,7 @@ class SiteContent(BaseModel):
     agent_location: str = "Bardigues (82340)"
     agent_quote: str = "VENDRE ou ACHETER un bien immobilier est un acte important et l'accompagnement d'un professionnel est nécessaire pour réussir votre projet sereinement et en toute sécurité."
     agent_photo_url: str = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face"
+    agent_biens_url: str = "https://bskimmobilier.com/clotilde-martin-4433/biens"
     # Sectors
     sectors_section_title: str = "Secteurs d'intervention"
     sectors_section_subtitle: str = "Expertise locale sur trois secteurs privilégiés du Tarn-et-Garonne et du Lot"
@@ -111,6 +112,20 @@ class SectorItem(BaseModel):
 
 class SectorsUpdate(BaseModel):
     sectors: List[SectorItem]
+
+# Form Options Models
+class FormOptionItem(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    value: str
+    label: str
+
+class FormOptionsUpdate(BaseModel):
+    villes: List[FormOptionItem]
+    types_bien: List[FormOptionItem]
+
+class FormOptions(BaseModel):
+    villes: List[FormOptionItem] = []
+    types_bien: List[FormOptionItem] = []
 
 # Lead Model
 class LeadCreate(BaseModel):

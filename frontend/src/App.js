@@ -202,42 +202,68 @@ const AgentSection = ({ content }) => {
 };
 
 // Sectors Section
-const SectorsSection = ({ content, sectors }) => (
-  <section className="py-16 md:py-24 px-4" data-testid="sectors-section">
-    <div className="max-w-6xl mx-auto">
-      <h2 className="font-heading text-3xl md:text-4xl font-semibold text-slate-800 text-center mb-4">
-        {content?.sectors_section_title || "Secteurs d'intervention"}
-      </h2>
-      <p className="text-slate-600 text-center mb-12 max-w-2xl mx-auto">
-        {content?.sectors_section_subtitle || "Expertise locale sur trois secteurs privilégiés"}
-      </p>
-      <div className="grid md:grid-cols-3 gap-6">
-        {sectors.map((sector) => (
-          <Card 
-            key={sector.id} 
-            className="sector-card border-0 shadow-lg overflow-hidden"
-            data-testid={`sector-card-${sector.name?.toLowerCase()}`}
-          >
-            <div className="h-48 overflow-hidden">
-              <img 
-                src={sector.image_url || 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=600&h=400&fit=crop'}
-                alt={sector.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <CardContent className="p-6">
-              <div className="flex items-center gap-2 mb-2">
-                <MapPin className="w-5 h-5 text-[#0079e8]" />
-                <h3 className="font-semibold text-xl text-slate-800">{sector.name}</h3>
+const SectorsSection = ({ content, sectors }) => {
+  const biensUrl = content?.agent_biens_url || 'https://bskimmobilier.com/clotilde-martin-4433/biens';
+  
+  // Duplicate sectors to always have 6 cards
+  const displaySectors = [];
+  if (sectors.length > 0) {
+    for (let i = 0; i < 6; i++) {
+      displaySectors.push({ ...sectors[i % sectors.length], displayId: `${sectors[i % sectors.length].id}-${i}` });
+    }
+  }
+
+  return (
+    <section className="py-16 md:py-24 px-4" data-testid="sectors-section">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="font-heading text-3xl md:text-4xl font-semibold text-slate-800 text-center mb-4">
+          {content?.sectors_section_title || "Secteurs d'intervention"}
+        </h2>
+        <p className="text-slate-600 text-center mb-12 max-w-2xl mx-auto">
+          {content?.sectors_section_subtitle || "Expertise locale sur trois secteurs privilégiés"}
+        </p>
+        <div className="grid md:grid-cols-3 gap-6">
+          {displaySectors.map((sector) => (
+            <Card 
+              key={sector.displayId} 
+              className="sector-card border-0 shadow-lg overflow-hidden"
+              data-testid={`sector-card-${sector.name?.toLowerCase()}`}
+            >
+              <div className="h-48 overflow-hidden">
+                <img 
+                  src={sector.image_url || 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=600&h=400&fit=crop'}
+                  alt={sector.name}
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <p className="text-slate-600 text-sm mb-1">{sector.code}</p>
-              <p className="text-slate-500">{sector.description}</p>
-            </CardContent>
-          </Card>
-        ))}
+              <CardContent className="p-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <MapPin className="w-5 h-5 text-[#0079e8]" />
+                  <h3 className="font-semibold text-xl text-slate-800">{sector.name}</h3>
+                </div>
+                <p className="text-slate-600 text-sm mb-1">{sector.code}</p>
+                <p className="text-slate-500">{sector.description}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        
+        {/* Button "Voir tous mes biens" */}
+        <div className="text-center mt-12">
+          <a
+            href={biensUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-[#0079e8] text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#0062bd] transition-colors btn-animate"
+            data-testid="sectors-biens-btn"
+          >
+            <ExternalLink className="w-5 h-5" />
+            Voir tous mes biens
+          </a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  );
 );
 
 // Lead Form Component

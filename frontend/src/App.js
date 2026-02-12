@@ -141,6 +141,7 @@ const Hero = ({ content, onScrollToForm }) => (
 // Agent Section
 const AgentSection = ({ content }) => {
   const phoneLink = `tel:${(content?.agent_phone || '06 20 83 38 87').replace(/\s/g, '')}`;
+  const biensUrl = content?.agent_biens_url || 'https://bskimmobilier.com/clotilde-martin-4433/biens';
   
   return (
     <section className="py-16 md:py-24 px-4 bg-slate-50" data-testid="agent-section">
@@ -169,6 +170,16 @@ const AgentSection = ({ content }) => {
               >
                 <Phone className="w-5 h-5" />
                 {content?.agent_phone || '06 20 83 38 87'}
+              </a>
+              <a 
+                href={biensUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 border-2 border-[#0079e8] text-[#0079e8] px-6 py-3 rounded-full font-semibold hover:bg-[#0079e8] hover:text-white transition-colors btn-animate"
+                data-testid="agent-biens-btn"
+              >
+                <ExternalLink className="w-5 h-5" />
+                Voir tous mes biens
               </a>
             </div>
           </div>

@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
-import { HelmetProvider } from 'react-helmet-async';
 import axios from "axios";
 import { Phone, Mail, MapPin, Home, Building, LandPlot, Warehouse, CheckCircle, User, Menu, X, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";

@@ -493,6 +493,85 @@ const SiteContentEditor = () => {
           </Card>
         </TabsContent>
 
+        {/* Form Options Tab */}
+        <TabsContent value="form">
+          <Card>
+            <CardHeader>
+              <CardTitle>Options du formulaire</CardTitle>
+              <CardDescription>Gérez les listes déroulantes du formulaire de contact</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Villes */}
+              <div>
+                <h4 className="font-medium mb-4 flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-[#0079e8]" />
+                  Villes du bien
+                </h4>
+                <div className="space-y-3">
+                  {formOptions.villes.map((ville, index) => (
+                    <div key={ville.id} className="flex gap-3 items-center">
+                      <Input
+                        value={ville.value}
+                        onChange={(e) => handleVilleChange(index, 'value', e.target.value)}
+                        placeholder="Valeur (ex: Lauzerte)"
+                        className="flex-1"
+                      />
+                      <Input
+                        value={ville.label}
+                        onChange={(e) => handleVilleChange(index, 'label', e.target.value)}
+                        placeholder="Label affiché (ex: Lauzerte (82110))"
+                        className="flex-1"
+                      />
+                      <Button variant="ghost" size="sm" onClick={() => removeVille(index)} className="text-red-500">
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ))}
+                  <Button variant="outline" onClick={addVille} size="sm">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Ajouter une ville
+                  </Button>
+                </div>
+              </div>
+
+              <Separator />
+
+              {/* Types de bien */}
+              <div>
+                <h4 className="font-medium mb-4 flex items-center gap-2">
+                  <Home className="w-4 h-4 text-[#0079e8]" />
+                  Types de bien à vendre
+                </h4>
+                <div className="space-y-3">
+                  {formOptions.types_bien.map((type, index) => (
+                    <div key={type.id} className="flex gap-3 items-center">
+                      <Input
+                        value={type.value}
+                        onChange={(e) => handleTypeBienChange(index, 'value', e.target.value)}
+                        placeholder="Valeur (ex: Maison)"
+                        className="flex-1"
+                      />
+                      <Input
+                        value={type.label}
+                        onChange={(e) => handleTypeBienChange(index, 'label', e.target.value)}
+                        placeholder="Label affiché (ex: Maison)"
+                        className="flex-1"
+                      />
+                      <Button variant="ghost" size="sm" onClick={() => removeTypeBien(index)} className="text-red-500">
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ))}
+                  <Button variant="outline" onClick={addTypeBien} size="sm">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Ajouter un type de bien
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         {/* Footer Tab */}
         <TabsContent value="footer">
           <Card>
